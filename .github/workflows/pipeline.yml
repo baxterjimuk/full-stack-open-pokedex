@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: [master]
     types: [opened, synchronize]
-# some comments test branch protection rule
+# some comments test branch protection rule and approvals for pull request
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
