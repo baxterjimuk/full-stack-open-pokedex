@@ -55,7 +55,7 @@ jobs:
         if: ${{ success() }}
         uses: rjstone/discord-webhook-notify@v1
         with:
-            severity: info
-            text: A new version of Pokedex deployed
-            description: to https://stormy-cliffs-30272.herokuapp.com by someone
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          severity: info
+          text: A new version of Pokedex deployed
+          description: to https://stormy-cliffs-30272.herokuapp.com by someone
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
