@@ -52,10 +52,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
       - name: New version deployed
-        if: ${{ success() }}
+        if: ${{ success() && github.event_name == 'push' }}
         uses: rjstone/discord-webhook-notify@v1
         with:
           severity: info
           text: A new version of Pokedex deployed
-          description: to https://stormy-cliffs-30272.herokuapp.com by someone
+          description: to https://stormy-cliffs-30272.herokuapp.com by mluukkai
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
