@@ -23,7 +23,7 @@ jobs:
       - name: build
         run: npm run build
       - name: On build fails
-        if: ${{ !failure() }}
+        if: ${{ !failure() && github.event_name == 'push' }}
         uses: rjstone/discord-webhook-notify@v1
         with:
           severity: error
