@@ -23,12 +23,12 @@ jobs:
       - name: build
         run: npm run build
       - name: On build fails
-        if: ${{ !failure() && github.event_name == 'push' }}
+        if: ${{ failure() && github.event_name == 'push' }}
         uses: rjstone/discord-webhook-notify@v1
         with:
           severity: error
           text: Build failed
-          description: commit ${{github.event.commits[0].url}} by mluukkai broke the build :(
+          description: commit ${{ github.event.head_commit.url }} by mluukkai broke the build :(
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: test
         run: npm test
@@ -42,7 +42,7 @@ jobs:
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') }}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "stormy-cliffs-30272"
           heroku_email: "baxterjimuk@gmail.com"
           healthcheck: "https://stormy-cliffs-30272.herokuapp.com/health"
@@ -60,7 +60,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
       - name: New version deployed
-        if: ${{ !success() && github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') }}
+        if: ${{ success() && github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') }}
         uses: rjstone/discord-webhook-notify@v1
         with:
           severity: info
